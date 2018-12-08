@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title></title>
 </head>
-<link rel="stylesheet" href="./css/index.css"/>
+<link rel="stylesheet" href="css/choose-tree.css"/>
 <script src="./js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <body>
@@ -129,7 +129,8 @@
                 </div>
             </div>
 
-            <div id="mapMainArea" style="position: relative;width: 100%;overflow: hidden;overflow-x: scroll;">
+            <div id="mapMainArea"
+                 style="position: relative;width: 100%;max-height:800px;overflow: hidden;overflow-x: scroll;overflow-y:scroll">
                 <!--<div class="chtrditu"></div>-->
 
 
@@ -156,29 +157,30 @@
         </div>
     </div>
 
-    <div class="chtreelu" id="rowTpl" style="display: none;height: 90px;width: initial;">
-        <h1></h1>
-        <ul class="chtreelul" style="white-space: nowrap;">
-
-        </ul>
-    </div>
-
-    <div class="choselu" id="rowTitleTpl" style="display: none;">
-        <span>学&nbsp&nbsp森&nbsp&nbsp路</span>
-    </div>
-
-    <li style="display: none;position: relative;float: initial;cursor: pointer" id="treeTpl">
-        <img src="./img/images/yezi_03.png"/>
-        <p>01</p>
-    </li>
-
-    <div class="overview_sou" id="chooseInfoTpl" style="display: none">
-        <span style="margin-top: 5px;margin-left: 5px;"></span>
-        <div class="overview_sougb" style="cursor: pointer"></div>
-    </div>
 </div>
 
+<!--tpl start -->
+<div class="chtreelu" id="rowTpl" style="display: none;height: 90px;overflow: initial;">
+    <h1></h1>
+    <ul class="chtreelul" style="white-space: nowrap;overflow: initial;">
 
+    </ul>
+</div>
+
+<div class="choselu" id="rowTitleTpl" style="display: none;">
+    <!--way neme-->
+</div>
+
+<li style="display: none;position: relative;cursor: pointer" id="treeTpl">
+    <img src="./img/images/yezi_03.png"/>
+    <p>01</p>
+</li>
+
+<div class="overview_sou" id="chooseInfoTpl" style="display: none">
+    <span style="margin-top: 5px;margin-left: 5px;"></span>
+    <div class="overview_sougb" style="cursor: pointer"></div>
+</div>
+<!--tpl end -->
 <div class="footer">
     <div class="footers">
         <ul>
@@ -207,7 +209,106 @@
     </ul>
 </div>
 <script src="./js/choose.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var STATE_0 = '';
+    //可选
+    var STATE_1 = './img/images/yezi_03.png';
+    //不可选
+    var STATE_2 = './img/images/yezi_05.png';
+    //已选
+    var STATE_3 = './img/images/yezi_07.png';
+    //暂不开放
+    var STATE_4 = './img/images/yezi_09.png';
 
+    var item = {					        //选树信息
+        chooseOrderNo: '',      //选树订单号
+        chooseData: {		    //第三位返回的选树信息
+            chooseId: '',	    //选树id
+            info: '',		    //选树位置信息
+            state: 0 		    //选树状态：0未选择 1被选中 2已选择
+        }
+    };
+
+    //树的类别
+    var treeTypeArr = [
+        {
+            typeId: '1',
+            name: '杨树',
+            imgUrl: './img/images/yezi_03.png',
+            money: 1000
+        },
+        {
+            typeId: '2',
+            name: '梧桐树',
+            imgUrl: './img/images/yezi_03.png',
+            money: 5000
+        },
+    ];
+
+    var pTitle = '学森路';
+    //父级id
+    var pId = 1;
+    //行数
+    var rowNum = 3;
+    //列数
+    var columnNum = 20;
+    //可选的数量
+    var chooseNum = 2;
+
+    var choosedArr = [
+        {
+            row: 0,
+            column: 0,
+            state: 2,
+            treeImg: './img/images/zcz_12.png',
+            content: '姓名：小明<br>班级：软件14'
+        },
+        {
+            row: 0,
+            column: 1,
+            state: 2,
+            treeImg: './img/images/zcz_05.png',
+            content: '姓名：小红<br>班级：土木08'
+        },
+        {
+            row: 0,
+            column: 2,
+            state: 2,
+            treeImg: '',
+        },
+        {
+            row: 0,
+            column: 3,
+            state: 4,
+        },
+    ];
+
+    //1横向排列 2纵向排列
+    var dispalyType = 1;
+    //需要显示自定义文字的位置信息
+    var wayArr = [
+        {
+            row: 0,
+            column: 0,
+            name: '学森路'
+        },
+        {
+            row: 1,
+            column: 0,
+            name: '梧桐西路'
+        },
+    ];
+
+    init();
+
+    setRowTitle(0, '北侧');
+    setRowTitle(1, '南侧');
+    setRowTitle(3, '西侧');
+
+    markTrees(choosedArr);
+
+
+</script>
 </body>
 </html>
 

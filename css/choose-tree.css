@@ -202,7 +202,7 @@ img {
     height: 9px;
     margin: 17px;
     overflow: hidden;
-    *filter: alpha(opacity=50);
+    /**filter: alpha(opacity=50);*/
     *opacity: .5;
     line-height: 999px;
 }
@@ -948,7 +948,7 @@ select option p {
     color: #333;
     text-align: justify;
     margin: 20px auto;
-    text-indent: none;
+    /*text-indent: none;*/
     display: block;
     width: 650px;
     margin: 0 auto;
@@ -1014,7 +1014,7 @@ select option p {
 
     line-height: 28px;
     text-align: center;
-    text-indent: none;
+    /*text-indent: none;*/
 }
 
 .growc_c .growzc {

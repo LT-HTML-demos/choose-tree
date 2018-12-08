@@ -1,11 +1,7 @@
-var item = {					        //选树信息
-    chooseOrderNo: '',      //选树订单号
-    chooseData: {		    //第三位返回的选树信息
-        chooseId: '',	    //选树id
-        info: '',		    //选树位置信息
-        state: 0 		    //选树状态：0未选择 1被选中 2已选择
-    }
-};
+var tRow = [];
+var tColumn = [];
+var curTree = {};
+var totalMoney = 0;
 /**
  *
  *     {					        //选树信息
@@ -18,98 +14,17 @@ var item = {					        //选树信息
  *
  */
 var chooseOrder = [];
-
 var chooseArr = [];
-
-//树的类别
-var treeTypeArr = [
-    {
-        typeId: '1',
-        name: '杨树',
-        imgUrl: './img/images/yezi_03.png',
-        money: 1000
-    },
-    {
-        typeId: '2',
-        name: '梧桐树',
-        imgUrl: './img/images/yezi_03.png',
-        money: 5000
-    },
-];
-
-var pTitle = '学森路';
-var pId = 1;
-var rowNum = 6;
-var columnNum = 5;
-var chooseNum = 2;
-var totalMoney = 0;
-
-var curTree = {};
-
-var tRow = [];
-var tColumn = [];
-
-var STATE_0 = '';
-//可选
-var STATE_1 = './img/images/yezi_03.png';
-//不可选
-var STATE_2 = './img/images/yezi_05.png';
-//已选
-var STATE_3 = './img/images/yezi_07.png';
-//暂不开放
-var STATE_4 = './img/images/yezi_09.png';
-
-
-/**
- * treeId : 树的id
- * pId : 父级id
- * state : 状态 0可选 1不可选 2已选  3暂不开放
- * imgUrl : 图片
- *
- */
-var tree = {
-    _rIndex: 0,
-    _cIndex: 0,
-    treeId: 0,
-    pId: pId,
-    state: 0,
-    imgUrl: './img/images/yezi_03.png'
-};
-
-init();
-markTree(0, 3, 2,
-    {
-        treeId: '123456789',
-        userName: '姓名:小明<br>班级：123'
-    });
-markTree(0, 1, 0);
-markTree(0, 8, 4);
-markTree(0, 9, 4);
-markTree(0, 10, 4);
-
-$('#mapMainArea ul li').on('click', function () {
-    var state = $(this).data('state');
-    var userName = $(this).data('userName');
-    if (state === 2 && userName) {
-        layer.tips(userName, '#' + this.id);
-    }
-    if (state === 1) {
-        chooseFunc(this);
-    }
-    if (state === 4) {
-        layer.tips('暂不开放', '#' + this.id);
-    }
-});
 
 //页面初始化
 function init() {
     renderTreeType();
+
     for (var r = 0; r < rowNum; r++) {
         tRow.push({
-            rowTitle: '北侧'
+            rowTitle: ''
         })
     }
-    tRow[1].rowTitle = '南侧';
 
     for (var c = 0; c < chooseNum; c++) {
         tColumn.push({
@@ -118,6 +33,39 @@ function init() {
     }
 
     renderRow();
+
+    $('#mapMainArea ul li').on('click', function () {
+        var state = $(this).data('state');
+        var content = $(this).data('content');
+        if (state === 2 && content) {
+            layer.tips(content, '#' + this.id);
+        }
+        if (state === 1) {
+            chooseFunc(this);
+        }
+        if (state === 4) {
+            layer.tips('暂不开放', '#' + this.id);
+        }
+    });
+
+    $('.treeType').on('click', function () {
+        $('.treeType').removeClass('money');
+        $(this).addClass('money');
+    });
+}
+
+/**
+ * 设置行标题
+ *
+ * @param row 行号
+ * @param title 标题
+ */
+function setRowTitle(row, title) {
+    if (row >= tRow.length) {
+        return;
+    }
+    $('#row_' + row).find('h1').text(title);
+    tRow[row].rowTitle = title;
 }
 
 //渲染行
@@ -138,18 +86,54 @@ function renderRow() {
             .find('.chtreelul')
             .addClass('treeRow');
 
-        //渲染中间的路
-        if ((r) % 2 === 0) {
-            var _width = $('#mapMainArea')[0].scrollWidth;
-
-            console.log(_width);
-            var rowTitleTpl = $('#rowTitleTpl').clone();
-            rowTitleTpl
-                .css('width', _width)
-                .show().appendTo($('#mapMainArea'));
+        if (dispalyType === 1) {
+            //渲染中间的路
+            $('.treeRow li').css('float', 'initial');
+            renderWayTitle(r);
+        } else if (dispalyType === 2) {
+            // $('#row_0').css('margin-left', '35%');//竖着排列路文字的位置控制
+            $('.chtreelu').css('width', '4rem');
+            $('#mapMainArea').css('height', '800px');
+            renderColumnWayTitle(r);
         }
     }
 
+}
+
+//渲染中间的路
+function renderColumnWayTitle(row) {
+    wayArr.forEach(function (item, i) {
+        if (item.column === row) {
+            var scrollHeight = $('#mapMainArea')[0].scrollHeight;
+            var wayTitle = item.name || pTitle;
+            var rowTitleTpl = $('#rowTitleTpl').clone()
+                .attr('id', 'row_way_' + i)
+                .html('<div style="width:60px;margin:0 auto">' + wayTitle + '</div>')
+            ;
+            rowTitleTpl
+                .css('height', scrollHeight)
+                .css('width', '10rem')
+                .show().appendTo($('#mapMainArea'));
+        }
+    })
+}
+
+//渲染中间的路
+function renderWayTitle(row) {
+    wayArr.forEach(function (item, i) {
+        if (item.row === row) {
+            var _width = $('#mapMainArea')[0].scrollWidth;
+            var wayTitle = item.name || pTitle;
+            var rowTitleTpl = $('#rowTitleTpl').clone()
+                .attr('id', 'row_way_' + i)
+                .html('<div style="letter-spacing:200px">' + wayTitle + '</div>')
+            ;
+            rowTitleTpl
+                .css('width', _width)
+                .show().appendTo($('#mapMainArea'));
+
+        }
+    })
 }
 
 //渲染列
@@ -179,7 +163,13 @@ function renderColumn(r) {
  * @param state 状态
  * @param treeId
  */
-function markTree(r, c, state, treeInfo) {
+function markTree(opt) {
+    var r = opt.row;
+    var c = opt.column;
+    var state = opt.state;
+    var treeInfo = opt.treeInfo;
+    var treeImg = opt.treeImg;
+
     var treeRowSrr = $('.treeRow');
     var $li = $(treeRowSrr[r]).find('li')[c];
     var img = $($li).find('img');
@@ -187,8 +177,8 @@ function markTree(r, c, state, treeInfo) {
         $($li).data('treeId', treeInfo.treeId);
     }
     $($li).data('state', state);
-    if (treeInfo && treeInfo.userName) {
-        $($li).data('userName', treeInfo.userName);
+    if (treeInfo && treeInfo.content) {
+        $($li).data('content', treeInfo.content);
     }
 
     if (state === 0) {
@@ -197,11 +187,34 @@ function markTree(r, c, state, treeInfo) {
     } else if (state === 1) {
         img.attr('src', STATE_1);
     } else if (state === 2) {
-        img.attr('src', STATE_2);
+        var _img = treeImg || STATE_2;
+        img.attr('src', _img);
     } else if (state === 3) {
         img.attr('src', STATE_3);
     } else if (state === 4) {
         img.attr('src', STATE_4);
+    }
+}
+
+function markTrees(trees) {
+    for (var i = 0; i < trees.length; i++) {
+        var choosedItem = trees[i];
+        var row = choosedItem.row;
+        var column = choosedItem.column;
+        var state = choosedItem.state;
+        var treeImg = choosedItem.treeImg;
+        var content = choosedItem.content;
+
+        markTree({
+            row: row,
+            column: column,
+            state: state,
+            treeImg: treeImg,
+            treeInfo: {
+                treeId: '123456789',
+                content: content
+            }
+        });
     }
 }
 
@@ -260,10 +273,10 @@ function chooseFunc(_this) {
         layer.msg('请先选择树种');
         return;
     }
-    var _row = $(_this).data("row");
-    var _column = $(_this).data("column");
+    var _row = $(_this).data('row');
+    var _column = $(_this).data('column');
     var rowTitle = tRow[_row].rowTitle;
-    var chooseInfo = pTitle + "-" + rowTitle + "-" + (_column + 1);
+    var chooseInfo = pTitle + '-' + rowTitle + '-' + _row + '-' + (_column + 1);
     var money = curTree.money;
     totalMoney += money;
 
@@ -330,11 +343,6 @@ function makeOrder() {
     }
     console.log(chooseOrder);
 }
-
-$('.treeType').on('click', function () {
-    $('.treeType').removeClass('money');
-    $(this).addClass('money');
-});
 
 function renderTreeType() {
     treeTypeArr.forEach(function (item, i) {
