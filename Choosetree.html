@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+<link rel="stylesheet" href="./css/index.css"/>
+<script src="./js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<body>
+<div class="header">
+    <div class="headers">
+        <div class="logo"><a href="#"><img src="./img/logo.jpg"></a></div>
+        <div class="nav">
+            <ul>
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#">所有项目</a></li>
+                <li><a href="#">众筹指南</a></li>
+                <li><a href="#">关于我们</a></li>
+                <li> . . .</li>
+            </ul>
+        </div>
+        <div class="entry">
+            <div class="f-b"><a href="#">发布项目</a></div>
+            <div class="entry-r"><img src="./img/entry.jpg"></div>
+            <div class="entry-n">
+                <ul>
+                    <li><a href="#">微信名字</a></li>
+                    <li><a href="#">个人主页</a></li>
+                    <li><a href="#">我的项目</a></li>
+                    <li><a href="#">捐款记录</a></li>
+                    <li><a href="#">我的关注</a></li>
+                    <li><a href="#">个人设置</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="perhomepage">
+    <div class="perhomepage_r certificate">
+        <div class="perhomepage_rt perhomepage_rt1">
+            <h1>项目信息</h1>
+        </div>
+
+        <div class="payconfirm">
+            <div class="payconfirm_img">
+                <img src="./img/images/images/img_03_03.png"/>
+            </div>
+            <div class="payconfirm_r">
+                <h1>项目名称：<span>交大校园梧桐树捐赠项目</span></h1>
+                <p class="donate">
+                    2017年10月26日，全球各地的医学校友、社会名流将齐聚西安交大医学部，共襄盛举！万众归心，庆典在即，让我们为母校盛会欢呼吧！请您出一份力，支持“抗战迁陕80周年纪念活动”，捐资将用于支付盛典活动必要的费用；您的捐助将令本次盛会更具纪念意义，溢彩流光！</p>
+                <h3>进行中</h3>
+                <h4>/ 剩余<span>188</span>可选</h4>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="donatetog">
+    <div class="donatetog_head">
+        <a class="choosetree">
+            铭牌类型
+        </a>
+        <a class="choosetree choosetree1">
+            选择位置
+        </a>
+        <a class="choosetree choosetree2">
+            完成捐赠
+        </a>
+    </div>
+    <div class="donatetog_c" style="display: block">
+        <div class="chosetree2">
+            <h1>请选择树种</h1>
+            <div class="chosetree2_r">
+                <div class="donatetog_c1_rj chosetree2_r1" id="treeTypeSel">
+                    <!--tree type sel area-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="choosetree1" class="donatetog_c" style="display: block;">
+        <div class="chosetree2" style="margin-top:0">
+            <h1>请选择区域</h1>
+            <div class="chosetree2_r">
+                <div class="donatetog_c1_rj chosetree2_r1">
+                    <span class="money">学森路</span>
+                    <span>梧桐西道南段</span>
+                    <span>梧桐西道北段</span>
+                    <span>梧桐东道南段</span>
+                    <span>梧桐东道南段</span>
+                    <span>梧桐东道北段</span>
+                    <span>梧桐西道南段</span>
+                    <span>梧桐西道北段</span>
+                    <span class="wchos">梧桐东道南段</span>
+                    <span class="wchos">梧桐东道北段</span>
+                    <span class="wchos">梧桐西道南段</span>
+                    <span class="wchos">梧桐西道南段</span>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="chosetree3">
+            <h1>请选择位置</h1>
+            <div class="chosetree3_t">
+                <div class="chosetree3_t1">
+                    <img src="./img/images/yezi_03.png"/>
+                    <span>可选</span>
+                </div>
+                <div class="chosetree3_t1">
+                    <img src="./img/images/yezi_05.png"/>
+                    <span>不可选</span>
+                </div>
+                <div class="chosetree3_t1">
+                    <img src="./img/images/yezi_07.png"/>
+                    <span>已选</span>
+                </div>
+
+                <div class="chosetree3_t1">
+                    <img src="./img/images/yezi_09.png"/>
+                    <span>暂不开放</span>
+                </div>
+            </div>
+
+            <div id="mapMainArea" style="position: relative;width: 100%;overflow: hidden;overflow-x: scroll;">
+                <!--<div class="chtrditu"></div>-->
+
+
+                <!--<div class="chtrditu"></div>-->
+            </div>
+
+
+            <div class="chtreeb" style="height: auto">
+                <div id="chooseInfoDiv">
+
+                </div>
+                <p style="margin-top: 18px;">
+                    <span style="margin-right: 20px;cursor: pointer" onclick="resetAllChoose()">清空已选</span>
+                    已选择<span id="totalNum"> 0 </span>个，共计<span id="totalMoney"> 0 </span>元
+                </p>
+            </div>
+
+            <div class="choosebtn">
+                <a id="chobtn1" class="persetc_btn choosebtn1" href="javascript:;">上一步</a>
+                <a id="chobtn2" class="persetc_btn" href="javascript:;" onclick="makeOrder()">下一步</a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="chtreelu" id="rowTpl" style="display: none;height: 90px;width: initial;">
+        <h1></h1>
+        <ul class="chtreelul" style="white-space: nowrap;">
+
+        </ul>
+    </div>
+
+    <div class="choselu" id="rowTitleTpl" style="display: none;">
+        <span>学&nbsp&nbsp森&nbsp&nbsp路</span>
+    </div>
+
+    <li style="display: none;position: relative;float: initial;cursor: pointer" id="treeTpl">
+        <img src="./img/images/yezi_03.png"/>
+        <p>01</p>
+    </li>
+
+    <div class="overview_sou" id="chooseInfoTpl" style="display: none">
+        <span style="margin-top: 5px;margin-left: 5px;"></span>
+        <div class="overview_sougb" style="cursor: pointer"></div>
+    </div>
+</div>
+
+
+<div class="footer">
+    <div class="footers">
+        <ul>
+            <li><a href="#">西安交通大学</a></li>
+            <li><a href="#">西安交通大学教育基金会</a></li>
+            <li><a href="#">西安交通大学校友网</a></li>
+            <li><a href="#">西安交通大学学生处</a></li>
+            <li><a href="#">西安交通大学就业网</a></li>
+        </ul>
+        <p><span>电话：029-82668199</span><span>传真：029-82668199</span><span>邮政编码：710049</span></p>
+        <p>地址：西安市西安交通大学东南门出版大厦十九楼(1904、1905、1906、1907、1909办公室)</p>
+        <div class="d-logo"><a href="#"><img src="./img/d-logo1.jpg"></a><a href="#"><img src="./img/d-logo2.jpg"></a>
+        </div>
+        <div class="footer-bo">
+            <p>技术支持与维护：西安交通大学数据与信息中心</p>
+            <p>版权所有 ：西安交通大学教育基金会 陕ICP备000001号</p>
+        </div>
+    </div>
+</div>
+<div class="side">
+    <ul>
+        <li><a href="javascript:goTop();"></a></li>
+        <li><a href="#"><p>问题</p>
+            <p>反馈</p></a></li>
+        <li><img src="./img/juan.jpg"></li>
+    </ul>
+</div>
+<script src="./js/choose.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
+
+
+
+
+
+
