@@ -19,6 +19,7 @@ var chooseArr = [];
 //页面初始化
 function init() {
     renderTreeType();
+    renderAreaType();
 
     for (var r = 0; r < rowNum; r++) {
         tRow.push({
@@ -50,6 +51,11 @@ function init() {
 
     $('.treeType').on('click', function () {
         $('.treeType').removeClass('money');
+        $(this).addClass('money');
+    });
+
+    $('#areaTypeDiv span').on('click', function () {
+        $('#areaTypeDiv span').removeClass('money');
         $(this).addClass('money');
     });
 }
@@ -91,7 +97,6 @@ function renderRow() {
             $('.treeRow li').css('float', 'initial');
             renderWayTitle(r);
         } else if (dispalyType === 2) {
-            // $('#row_0').css('margin-left', '35%');//竖着排列路文字的位置控制
             $('.chtreelu').css('width', '4rem');
             $('#mapMainArea').css('height', '800px');
             renderColumnWayTitle(r);
@@ -353,6 +358,13 @@ function renderTreeType() {
             })
             .appendTo($('#treeTypeSel'))
     });
+}
+
+function renderAreaType() {
+    $('#areaTypeDiv').html('');
+    areaArr.forEach(function (item, i) {
+        $('#areaTypeDiv').append('<span>' + item.title + '</span>');
+    })
 }
 
 function chooseTreeType(treeType) {

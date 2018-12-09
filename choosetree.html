@@ -46,7 +46,7 @@
 
         <div class="payconfirm">
             <div class="payconfirm_img">
-                <img src="./img/images/images/img_03_03.png"/>
+                <img src="./img/images/img3_03.png"/>
             </div>
             <div class="payconfirm_r">
                 <h1>项目名称：<span>交大校园梧桐树捐赠项目</span></h1>
@@ -88,7 +88,7 @@
         <div class="chosetree2" style="margin-top:0">
             <h1>请选择区域</h1>
             <div class="chosetree2_r">
-                <div class="donatetog_c1_rj chosetree2_r1">
+                <div class="donatetog_c1_rj chosetree2_r1" id="areaTypeDiv">
                     <span class="money">学森路</span>
                     <span>梧桐西道南段</span>
                     <span>梧桐西道北段</span>
@@ -244,6 +244,30 @@
         },
     ];
 
+    var areaArr = [
+        {
+            title: '学森路'
+        },
+        {
+            title: '梧桐西道南段'
+        },
+        {
+            title: '梧桐西道北段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+    ];
+
     var pTitle = '学森路';
     //父级id
     var pId = 1;
@@ -263,8 +287,8 @@
             content: '姓名：小明<br>班级：软件14'
         },
         {
-            row: 0,
-            column: 1,
+            row: 1,
+            column: 5,
             state: 2,
             treeImg: './img/images/zcz_05.png',
             content: '姓名：小红<br>班级：土木08'
@@ -288,13 +312,8 @@
     var wayArr = [
         {
             row: 0,
-            column: 0,
+            column: 1,
             name: '学森路'
-        },
-        {
-            row: 1,
-            column: 0,
-            name: '梧桐西路'
         },
     ];
 
@@ -302,10 +321,10 @@
 
     setRowTitle(0, '北侧');
     setRowTitle(1, '南侧');
-    setRowTitle(3, '西侧');
 
     markTrees(choosedArr);
 
+    // $('#row_0').css('margin-left', '30%');//竖着排列路文字的位置控制
 
 </script>
 </body>
