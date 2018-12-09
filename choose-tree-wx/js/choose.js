@@ -54,8 +54,8 @@ function init() {
         $(this).addClass('money');
     });
 
-    $('#areaTypeDiv span').on('click', function () {
-        $('#areaTypeDiv span').removeClass('money');
+    $('#areaTypeDiv li a').on('click', function () {
+        $('#areaTypeDiv li a').removeClass('money');
         $(this).addClass('money');
     });
 }
@@ -97,8 +97,9 @@ function renderRow() {
             $('.treeRow li').css('float', 'initial');
             renderWayTitle(r);
         } else if (dispalyType === 2) {
-            $('.chtreelu').css('width', '4rem');
-            $('#mapMainArea').css('height', '800px');
+            $('.chtreelu').css('width', '.5rem');
+            $('.chtreelu').css('margin', '.1rem');
+            $('#mapMainArea').css('height', '5rem');
             renderColumnWayTitle(r);
         }
     }
@@ -113,11 +114,11 @@ function renderColumnWayTitle(row) {
             var wayTitle = item.name || pTitle;
             var rowTitleTpl = $('#rowTitleTpl').clone()
                 .attr('id', 'row_way_' + i)
-                .html('<div style="width:60px;margin:0 auto">' + wayTitle + '</div>')
+                .html('<div style="width:.3rem;margin:0 auto">' + wayTitle + '</div>')
             ;
             rowTitleTpl
                 .css('height', scrollHeight)
-                .css('width', '10rem')
+                .css('width', '1rem')
                 .show().appendTo($('#mapMainArea'));
         }
     })
@@ -131,7 +132,7 @@ function renderWayTitle(row) {
             var wayTitle = item.name || pTitle;
             var rowTitleTpl = $('#rowTitleTpl').clone()
                 .attr('id', 'row_way_' + i)
-                .html('<div style="letter-spacing:200px">' + wayTitle + '</div>')
+                .html('<div style="letter-spacing:1rem">' + wayTitle + '</div>')
             ;
             rowTitleTpl
                 .css('width', _width)
@@ -363,7 +364,8 @@ function renderTreeType() {
 function renderAreaType() {
     $('#areaTypeDiv').html('');
     areaArr.forEach(function (item, i) {
-        $('#areaTypeDiv').append('<span>' + item.title + '</span>');
+        // $('#areaTypeDiv').append('<span>' + item.title + '</span>');
+        $('#areaTypeDiv').append('<li><a href="#">' + item.title + '</a></li>');
     })
 }
 

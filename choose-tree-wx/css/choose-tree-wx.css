@@ -2521,7 +2521,7 @@ body {
 
 .luduan li a {
 	display: block;
-	border: 0.01rem solid #7d7d7d;
+	border: 1px solid #7d7d7d;
 	text-align: center;
 	line-height: 0.33rem;
 	font-size: 0.1735rem;
@@ -2529,7 +2529,7 @@ body {
 }
 
 .luduan li:first-child a {
-	border-color: #9c1f23;
+	/*border-color: #9c1f23;*/
 }
 
 .changengguo {
@@ -2622,7 +2622,8 @@ body {
 }
 
 .beicr ol {
-	width: 6.5rem;
+	/*width: 6.5rem;*/
+	margin: 0 5px;
 	float: right;
 	display: flex;
 	display: -webkit-flex;
@@ -2660,12 +2661,12 @@ body {
 	font-size: 0.18rem;
 	color: #1d1d1d;
 	margin: 0.1rem;
-	border: 0.01rem solid #9c1f23;
+	border: 1px solid #9c1f23;
 }
 
 .div_x ul li span {
 	padding: 0.1rem;
-	border-right: 0.01rem solid #9c1f23;
+	border-right: 1px solid #9c1f23;
 }
 
 .div_x ul li a {
@@ -3620,3 +3621,106 @@ body {
 }
 
 
+/*.chtreelu h1{*/
+	/*width: 0.3rem;*/
+	/*display: block;*/
+	/*overflow: hidden;*/
+	/*text-align: center;*/
+	/*font-size: 0.24rem;*/
+	/*color: #c79f63;*/
+	/*float: left;*/
+/*}*/
+
+.choselu {
+	width: 100%;
+	height: 1rem;
+	background: #c5d9ee;
+	margin: 10px auto;
+	float: left;
+	text-align: center;
+	font-size: .3rem;
+	font-weight: normal;
+	color: #758da6;
+	line-height: 1rem;
+}
+
+.treeType{
+	display: block;
+	border: 1px solid #7d7d7d;
+	text-align: center;
+	line-height: 0.33rem;
+	font-size: 0.1735rem;
+	border-radius: 0.1rem;
+	width: 1.6rem;
+	overflow: hidden;
+	float: left;
+	margin: 0.1rem 0.1rem;
+}
+
+.chtreelu {
+    width: 100%;
+    /*height: 80px;*/
+    overflow: hidden;
+    float: left;
+}
+
+.chtreelu h1 {
+    /*width: 1rem ;*/
+    font-size: .24rem;
+    font-weight: normal;
+    color: #c79f63;
+    /*margin: 0 10px;*/
+
+    float: left;
+}
+
+.chtreelul {
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.chtreelul li {
+    width: 32px;
+    /*height: 100%;*/
+    /*min-height: 90px;*/
+    float: left;
+    overflow: hidden;
+    /*margin: 0 14px;*/
+    text-align: center;
+}
+
+.chtreelul li img {
+    width: 32px;
+    /*margin: 10px 0 3px;*/
+}
+
+.choselu {
+    width: 100%;
+    /*height: 85px;*/
+    background: #c5d9ee;
+    margin: 10px auto;
+    float: left;
+    text-align: center;
+    /*font-size: 34px;*/
+    font-weight: normal;
+    color: #758da6;
+
+    /*line-height: 85px;*/
+}
+
+.chtreeb {
+    width: 100%;
+    height: 50px;
+    float: left;
+}
+
+.donatetog_c1_rj .money {
+    border: 1px solid #9c1f23;
+    color: #9c1f23;
+}
+
+.luduan li a.money{
+    border-color: #9c1f23;
+    color: #9c1f23;
+}

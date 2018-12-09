@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页 主态</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="css/choose-tree-wx.css"/>
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/rem.js"></script>
+    <script type="text/javascript" src="./js/choose.js"></script>
+    <script src="../js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        body{
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+
+<body style="display: initial;height: 100%;">
+<div class="homepage-header juanxs">
+    <a href="#"></a>
+    <span>捐赠信息</span>
+    <div></div>
+</div>
+<ul class="sa_juan sa_juan2">
+    <li>
+        <a href="#">铭牌类型</a>
+    </li>
+    <li>
+        <a href="#">选择位置</a>
+    </li>
+    <li>
+        <a href="#">完成捐赠</a>
+    </li>
+</ul>
+<div class="donatetog_c" style="display: block">
+    <div class="chosetree2">
+        <h1 style="font-size: 0.2rem;padding-left: .1rem;">请选择树种</h1>
+        <div class="chosetree2_r">
+            <div class="donatetog_c1_rj chosetree2_r1" id="treeTypeSel">
+                <!--tree type sel area-->
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="luduan" id="areaTypeDiv">
+    <li><a href="#">学森路</a></li>
+    <li>
+        <a href="#">梧桐西道南段</a>
+    </li>
+    <li>
+        <a href="#">梧桐西道南段</a>
+    </li>
+    <li>
+        <a href="#">梧桐东道南段</a>
+    </li>
+    <li>
+        <a href="#">学森路</a>
+    </li>
+    <li>
+        <a href="#">梧桐西道南段</a>
+    </li>
+    <li>
+        <a href="#">梧桐西道南段</a>
+    </li>
+    <li>
+        <a href="#">梧桐东道南段</a>
+    </li>
+</ul>
+<div class="changengguo">
+    <a href="#">查看更多</a>
+</div>
+<div class="xuanb_wutong">
+    <div class="div_shu">
+        <p>请选择位置</p>
+        <ol>
+            <li>
+                <img src="img/se01_07.png">
+                <span>可选</span>
+            </li>
+            <li>
+                <img src="img/se01_12.png">
+                <span>不可选</span>
+            </li>
+            <li>
+                <img src="img/se01_13.png">
+                <span>已选</span>
+            </li>
+            <li>
+                <img src="img/se01_09.png">
+                <span>暂不开放</span>
+            </li>
+        </ol>
+
+    </div>
+    <!--<div id="mapMainArea" style="position: relative;width: 100%;overflow: hidden;overflow-x: scroll;overflow-y:scroll">-->
+        <!--&lt;!&ndash;<div class="shu01"><img src="img/se01_21.png"> </div>&ndash;&gt;-->
+        <!--<div class="beicr">-->
+            <!--<span class="sp1">北侧</span>-->
+            <!--<ol>-->
+                <!--<li>-->
+                    <!--<img src="img/se01_07.png"/>-->
+                    <!--<span>01</span>-->
+                <!--</li>-->
+            <!--</ol>-->
+
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="shu01"><img src="img/xuese_14.png"></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="shu01"><img src="img/se01_21.png"> </div>&ndash;&gt;-->
+    <!--</div>-->
+
+    <div id="mapMainArea" style="position: relative;width: 100%;max-height: 5rem;overflow: hidden;overflow-x: scroll;overflow-y:scroll">
+        <!--<div class="chtrditu"></div>-->
+
+
+        <!--<div class="chtrditu"></div>-->
+    </div>
+
+</div>
+
+<div class="div_x" style="margin-bottom: 1rem;">
+    <ul id="chooseInfoDiv">
+
+    </ul>
+    <li class="qing_k"><a onclick="resetAllChoose()">清空已选</a></li>
+
+    <p class="yixuanb">已选择<span id="totalNum">0</span>棵,共计<span id="totalMoney">0</span>元</p>
+</div>
+
+
+<div class="xia_yibu" style="position: fixed;bottom: 0;left: 0;">
+    <a href="#" id="cv">下一步</a>
+</div>
+
+
+
+
+<!--tpl start -->
+<div class="chtreelu" id="rowTpl" style="display: none;overflow: initial;">
+    <h1></h1>
+    <ul class="chtreelul" style="white-space: nowrap;overflow: initial;">
+
+    </ul>
+</div>
+
+<div class="choselu" id="rowTitleTpl" style="display: none;">
+    <!--way neme-->
+</div>
+
+<li style="display: none;position: relative;cursor: pointer;" id="treeTpl">
+    <img src="img/se01_07.png" style="width: 0.3rem;"/>
+    <p>01</p>
+</li>
+
+<li id="chooseInfoTpl" style="display: none"><span> </span><a class="overview_sougb" style="font-family: Helvetica;">X</a></li>
+
+<!--<div class="overview_sou" id="chooseInfoTpl" style="display: none">-->
+    <!--<span style="margin-top: 5px;margin-left: 5px;"></span>-->
+    <!--<div class="overview_sougb" style="cursor: pointer"></div>-->
+<!--</div>-->
+</body>
+
+
+<script>
+    var STATE_0 = '';
+    //可选
+    var STATE_1 = 'img/se01_07.png';
+    //不可选
+    var STATE_2 = 'img/se01_12.png';
+    //已选
+    var STATE_3 = 'img/se01_13.png';
+    //暂不开放
+    var STATE_4 = 'img/se01_09.png';
+
+    var item = {					        //选树信息
+        chooseOrderNo: '',      //选树订单号
+        chooseData: {		    //第三位返回的选树信息
+            chooseId: '',	    //选树id
+            info: '',		    //选树位置信息
+            state: 0 		    //选树状态：0未选择 1被选中 2已选择
+        }
+    };
+
+    //树的类别
+    var treeTypeArr = [
+        {
+            typeId: '1',
+            name: '杨树',
+            imgUrl: './img/images/yezi_03.png',
+            money: 1000
+        },
+        {
+            typeId: '2',
+            name: '梧桐树',
+            imgUrl: './img/images/yezi_03.png',
+            money: 5000
+        },
+    ];
+
+    var areaArr = [
+        {
+            title: '学森路'
+        },
+        {
+            title: '梧桐西道南段'
+        },
+        {
+            title: '梧桐西道北段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+        {
+            title: '梧桐东道南段'
+        },
+    ];
+
+    var pTitle = '学森路';
+    //父级id
+    var pId = 1;
+    //行数
+    var rowNum = 4;
+    //列数
+    var columnNum = 20;
+    //可选的数量
+    var chooseNum = 2;
+
+    var choosedArr = [
+        {
+            row: 0,
+            column: 0,
+            state: 2,
+            treeImg: 'img/se01_12.png',
+            content: '姓名：小明<br>班级：软件14'
+        },
+        {
+            row: 1,
+            column: 5,
+            state: 2,
+            treeImg: 'img/se01_12.png',
+            content: '姓名：小红<br>班级：土木08'
+        },
+        {
+            row: 0,
+            column: 2,
+            state: 2,
+            treeImg: '',
+        },
+        {
+            row: 0,
+            column: 3,
+            state: 4,
+        },
+
+    ];
+
+    //1横向排列 2纵向排列
+    var dispalyType = 2;
+    //需要显示自定义文字的位置信息
+    var wayArr = [
+        {
+            row: 0,
+            column: 0,
+            name: '学森路'
+        },
+    ];
+
+    init();
+
+    setRowTitle(0, '北侧');
+    setRowTitle(1, '南侧');
+    //
+    markTrees(choosedArr);
+
+    // $('#row_0').css('margin-left', '30%');//竖着排列路文字的位置控制
+
+</script>
+</html>
