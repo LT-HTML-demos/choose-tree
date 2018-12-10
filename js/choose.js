@@ -97,7 +97,9 @@ function renderRow() {
             $('.treeRow li').css('float', 'initial');
             renderWayTitle(r);
         } else if (dispalyType === 2) {
-            $('.chtreelu').css('width', '4rem');
+            $('.chtreelu').css('width', '4rem')
+                .css('display', 'inline-block')
+                .css('float', 'none');
             $('#mapMainArea').css('height', '800px');
             renderColumnWayTitle(r);
         }
@@ -113,7 +115,9 @@ function renderColumnWayTitle(row) {
             var wayTitle = item.name || pTitle;
             var rowTitleTpl = $('#rowTitleTpl').clone()
                 .attr('id', 'row_way_' + i)
-                .html('<div style="width:60px;margin:0 auto">' + wayTitle + '</div>')
+                .css('display', 'inline-block')
+                .css('float', 'none')
+                .html('<div style="width:60px;margin:0 auto;display: flex">' + wayTitle + '</div>')
             ;
             rowTitleTpl
                 .css('height', scrollHeight)

@@ -129,7 +129,7 @@
                 </div>
             </div>
 
-            <div id="mapMainArea" style="position: relative;width: 100%;max-height:800px;overflow: hidden;overflow-x: scroll;overflow-y:scroll">
+            <div id="mapMainArea" style="    white-space: nowrap;position: relative;width: 100%;max-height:800px;overflow: hidden;overflow-x: scroll;overflow-y:scroll">
                 <!--<div class="chtrditu"></div>-->
 
 
@@ -219,14 +219,6 @@
     //暂不开放
     var STATE_4 = './img/images/yezi_09.png';
 
-    var item = {					        //选树信息
-        chooseOrderNo: '',      //选树订单号
-        chooseData: {		    //第三位返回的选树信息
-            chooseId: '',	    //选树id
-            info: '',		    //选树位置信息
-            state: 0 		    //选树状态：0未选择 1被选中 2已选择
-        }
-    };
 
     //树的类别
     var treeTypeArr = [
@@ -272,7 +264,7 @@
     //父级id
     var pId = 1;
     //行数
-    var rowNum = 3;
+    var rowNum = 20;
     //列数
     var columnNum = 20;
     //可选的数量
@@ -307,12 +299,12 @@
     ];
 
     //1横向排列 2纵向排列
-    var dispalyType = 1;
+    var dispalyType = 2;
     //需要显示自定义文字的位置信息
     var wayArr = [
         {
             row: 0,
-            column: 1,
+            column: 5,
             name: '学森路'
         },
     ];

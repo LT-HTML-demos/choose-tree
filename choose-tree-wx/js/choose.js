@@ -105,6 +105,7 @@ function renderRow() {
             $('.chtreelu').css('margin', '.1rem');
             $('.chtreelu').css('float', 'none');
             $('.chtreelu').css('display', 'inline-block');
+
             $('#mapMainArea').css('height', '5rem')
                 .css('white-space', 'nowrap');
 
@@ -122,7 +123,9 @@ function renderColumnWayTitle(row) {
             var wayTitle = item.name || pTitle;
             var rowTitleTpl = $('#rowTitleTpl').clone()
                 .attr('id', 'row_way_' + i)
-                .html('<div style="width:.3rem;margin:0 auto">' + wayTitle + '</div>')
+                .css('float', 'none')
+                .css('display', 'inline-block')
+                .html('<div style="width:.3rem;margin:0 auto;    position: absolute;    left: 1.7rem;">' + wayTitle + '</div>')
             ;
             rowTitleTpl
                 .css('height', scrollHeight)

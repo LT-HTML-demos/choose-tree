@@ -4446,7 +4446,7 @@ select::-ms-expand {
 }
 
 .chtreelu h1 {
-    width: 30px;
+    width: 50px;
     font-size: 28px;
     font-weight: normal;
     color: #c79f63;
@@ -4486,6 +4486,7 @@ select::-ms-expand {
     color: #758da6;
 
     line-height: 85px;
+    white-space: initial;
 }
 
 .chtreeb {
