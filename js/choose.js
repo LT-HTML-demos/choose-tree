@@ -2,6 +2,7 @@ var tRow = [];
 var tColumn = [];
 var curTree = {};
 var totalMoney = 0;
+var curTreeImg = '';
 /**
  *
  *     {					        //选树信息
@@ -47,6 +48,7 @@ function init() {
         if (state === 4) {
             layer.tips('暂不开放', '#' + this.id);
         }
+        $(this).find('img').attr('src',curTree.imgUrl)
     });
 
     $('.treeType').on('click', function () {
@@ -85,7 +87,9 @@ function renderRow() {
         //行标题
         var $row_h1 = $(rowTpl).find('h1');
         $($row_h1).text(tRow[r].rowTitle);
-
+        if (dispalyType === 1) {
+            $(rowTpl).find('ul').css('padding-left', '70px');
+        }
         renderColumn(r);
 
         $('#row_' + r)
@@ -100,7 +104,7 @@ function renderRow() {
             $('.chtreelu').css('width', '4rem')
                 .css('display', 'inline-block')
                 .css('float', 'none')
-                .css('height','auto');
+                .css('height', 'auto');
             $('#mapMainArea').css('height', '800px');
             renderColumnWayTitle(r);
         }
@@ -286,7 +290,7 @@ function chooseFunc(_this) {
     var _row = $(_this).data('row');
     var _column = $(_this).data('column');
     var rowTitle = tRow[_row].rowTitle;
-    var chooseInfo = pTitle + '-' + rowTitle + '-' + _row + '-' + (_column + 1);
+    var chooseInfo = pTitle + '-' + rowTitle + '-' + parseInt(_row + 1) + '-' + (_column + 1);
     var money = curTree.money;
     totalMoney += money;
 
@@ -374,7 +378,6 @@ function renderAreaType() {
 
 function chooseTreeType(treeType) {
     curTree = treeType;
-    console.log(curTree);
 }
 
 function myAlert(msg) {

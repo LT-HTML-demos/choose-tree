@@ -97,6 +97,7 @@ function renderRow() {
             .addClass('treeRow');
 
         if (dispalyType === 1) {
+            $(rowTpl).find('ul').css('padding-left', '.5rem');
             //渲染中间的路
             $('.treeRow li').css('float', 'initial');
             renderWayTitle(r);

@@ -143,6 +143,7 @@
                 </div>
                 <p style="margin-top: 18px;">
                     <span style="margin-right: 20px;cursor: pointer" onclick="resetAllChoose()">清空已选</span>
+                    <a class="persetc_btn" href="javascript:;" style="width: 90px;display: initial;padding:6px 10px">确定选择</a>
                     已选择<span id="totalNum"> 0 </span>个，共计<span id="totalMoney"> 0 </span>元
                 </p>
             </div>
@@ -264,9 +265,9 @@
     //父级id
     var pId = 1;
     //行数
-    var rowNum = 20;
+    var rowNum = 2;
     //列数
-    var columnNum = 20;
+    var columnNum = 30;
     //可选的数量
     var chooseNum = 2;
 
@@ -310,7 +311,6 @@
     ];
 
     init();
-
     setRowTitle(0, '北侧');
     setRowTitle(1, '南侧');
 
