@@ -14,9 +14,9 @@
     <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="js/rem.js"></script>
     <script type="text/javascript" src="./js/choose.js"></script>
-    <script src="../js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/layer/mobile/layer.js" type="text/javascript" charset="utf-8"></script>
     <style>
-        body{
+        body {
             -webkit-overflow-scrolling: touch;
         }
     </style>
@@ -39,43 +39,31 @@
         <a href="#">完成捐赠</a>
     </li>
 </ul>
-<div class="donatetog_c" style="display: block">
+<div class="donatetog_c">
     <div class="chosetree2">
-        <h1 style="font-size: 0.2rem;padding-left: .1rem;">请选择树种</h1>
+        <h1>请选择树种</h1>
         <div class="chosetree2_r">
             <div class="donatetog_c1_rj chosetree2_r1" id="treeTypeSel">
-                <!--tree type sel area-->
+                <!--tree type sel area-->	
             </div>
         </div>
     </div>
 </div>
-<ul class="luduan" id="areaTypeDiv">
-    <li><a href="#">学森路</a></li>
-    <li>
-        <a href="#">梧桐西道南段</a>
-    </li>
-    <li>
-        <a href="#">梧桐西道南段</a>
-    </li>
-    <li>
-        <a href="#">梧桐东道南段</a>
-    </li>
-    <li>
-        <a href="#">学森路</a>
-    </li>
-    <li>
-        <a href="#">梧桐西道南段</a>
-    </li>
-    <li>
-        <a href="#">梧桐西道南段</a>
-    </li>
-    <li>
-        <a href="#">梧桐东道南段</a>
-    </li>
-</ul>
-<div class="changengguo">
-    <a href="#">查看更多</a>
+
+<div class="donatetog_c">
+    <div class="chosetree2">
+        <h1>请选择区域</h1>
+        <div class="chosetree2_r">
+            <ul class="luduan" id="areaTypeDiv">
+                <!--area tpl area-->
+            </ul>
+            <div class="changengguo">
+                <!-- <a href="#">查看更多</a> -->
+            </div>
+        </div>
+    </div>
 </div>
+
 <div class="xuanb_wutong">
     <div class="div_shu">
         <p>请选择位置</p>
@@ -99,23 +87,8 @@
         </ol>
 
     </div>
-    <!--<div id="mapMainArea" style="position: relative;width: 100%;overflow: hidden;overflow-x: scroll;overflow-y:scroll">-->
-        <!--&lt;!&ndash;<div class="shu01"><img src="img/se01_21.png"> </div>&ndash;&gt;-->
-        <!--<div class="beicr">-->
-            <!--<span class="sp1">北侧</span>-->
-            <!--<ol>-->
-                <!--<li>-->
-                    <!--<img src="img/se01_07.png"/>-->
-                    <!--<span>01</span>-->
-                <!--</li>-->
-            <!--</ol>-->
 
-        <!--</div>-->
-        <!--&lt;!&ndash;<div class="shu01"><img src="img/xuese_14.png"></div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="shu01"><img src="img/se01_21.png"> </div>&ndash;&gt;-->
-    <!--</div>-->
-
-    <div id="mapMainArea" style="position: relative;width: 100%;max-height: 5rem;overflow: hidden;overflow-x: scroll;overflow-y:scroll">
+    <div id="mapMainArea" class="mapMainArea">
         <!--<div class="chtrditu"></div>-->
 
 
@@ -124,7 +97,7 @@
 
 </div>
 
-<div class="div_x" style="margin-bottom: 1rem;">
+<div class="div_x">
     <ul id="chooseInfoDiv">
 
     </ul>
@@ -134,17 +107,15 @@
 </div>
 
 
-<div class="xia_yibu" style="position: fixed;bottom: 0;left: 0;">
+<div class="xia_yibu" style=>
     <a href="#" id="cv">下一步</a>
 </div>
 
 
-
-
 <!--tpl start -->
-<div class="chtreelu" id="rowTpl" style="display: none;overflow: initial;">
+<div class="chtreelu" id="rowTpl" style="display: none;">
     <h1></h1>
-    <ul class="chtreelul" style="white-space: nowrap;overflow: initial;">
+    <ul class="chtreelul">
 
     </ul>
 </div>
@@ -153,17 +124,14 @@
     <!--way neme-->
 </div>
 
-<li style="display: none;position: relative;cursor: pointer;" id="treeTpl">
+<li class="tree-li" style="display: none;" id="treeTpl">
     <img src="img/se01_07.png" style="width: 0.3rem;"/>
     <p>01</p>
 </li>
 
-<li id="chooseInfoTpl" style="display: none"><span> </span><a class="overview_sougb" style="font-family: Helvetica;">X</a></li>
+<li id="chooseInfoTpl" style="display: none"><span> </span><a class="overview_sougb"
+                                                              style="font-family: Helvetica;">X</a></li>
 
-<!--<div class="overview_sou" id="chooseInfoTpl" style="display: none">-->
-    <!--<span style="margin-top: 5px;margin-left: 5px;"></span>-->
-    <!--<div class="overview_sougb" style="cursor: pointer"></div>-->
-<!--</div>-->
 </body>
 
 
@@ -231,7 +199,7 @@
     //父级id
     var pId = 1;
     //行数
-    var rowNum = 4;
+    var rowNum = 20;
     //列数
     var columnNum = 20;
     //可选的数量
@@ -267,7 +235,7 @@
     ];
 
     //1横向排列 2纵向排列
-    var dispalyType = 2;
+    var dispalyType = 1;
     //需要显示自定义文字的位置信息
     var wayArr = [
         {

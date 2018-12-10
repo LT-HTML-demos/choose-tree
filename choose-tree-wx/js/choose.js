@@ -39,13 +39,17 @@ function init() {
         var state = $(this).data('state');
         var content = $(this).data('content');
         if (state === 2 && content) {
-            layer.tips(content, '#' + this.id);
+            layer.open({
+                content: content, skin: 'msg', time: 2 //2秒后自动关闭
+            });
         }
         if (state === 1) {
             chooseFunc(this);
         }
         if (state === 4) {
-            layer.tips('暂不开放', '#' + this.id);
+            layer.open({
+                content: '暂不开放', skin: 'msg', time: 2 //2秒后自动关闭
+            });
         }
     });
 
@@ -99,7 +103,11 @@ function renderRow() {
         } else if (dispalyType === 2) {
             $('.chtreelu').css('width', '.5rem');
             $('.chtreelu').css('margin', '.1rem');
-            $('#mapMainArea').css('height', '5rem');
+            $('.chtreelu').css('float', 'none');
+            $('.chtreelu').css('display', 'inline-block');
+            $('#mapMainArea').css('height', '5rem')
+                .css('white-space', 'nowrap');
+
             renderColumnWayTitle(r);
         }
     }
@@ -119,6 +127,7 @@ function renderColumnWayTitle(row) {
             rowTitleTpl
                 .css('height', scrollHeight)
                 .css('width', '1rem')
+                .css('white-space', 'initial')
                 .show().appendTo($('#mapMainArea'));
         }
     })
@@ -276,7 +285,9 @@ function resetChooseInfo(chooseId) {
 
 function chooseFunc(_this) {
     if (!curTree.typeId) {
-        layer.msg('请先选择树种');
+        layer.open({
+            content: '请先选择树种',skin: 'msg',time: 2 //2秒后自动关闭
+        });
         return;
     }
     var _row = $(_this).data('row');
