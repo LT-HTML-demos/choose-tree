@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>个人主页 主态</title>
+    <title>选树</title>
     <meta charset="utf-8">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -44,7 +44,7 @@
         <h1>请选择树种</h1>
         <div class="chosetree2_r">
             <div class="donatetog_c1_rj chosetree2_r1" id="treeTypeSel">
-                <!--tree type sel area-->	
+                <!--tree type sel area-->
             </div>
         </div>
     </div>
@@ -73,11 +73,11 @@
                 <span>可选</span>
             </li>
             <li>
-                <img src="img/se01_12.png">
+                <img src="img/se01_13.png">
                 <span>不可选</span>
             </li>
             <li>
-                <img src="img/se01_13.png">
+                <img src="img/se01_12.png">
                 <span>已选</span>
             </li>
             <li>
@@ -101,9 +101,11 @@
     <ul id="chooseInfoDiv">
 
     </ul>
-    <li class="qing_k"><a style="color: #9c1f23;" onclick="resetAllChoose()">清空已选</a></li>
+    <li class="qing_k">
+        <a style="color: #9c1f23;display: inline;" onclick="resetAllChoose()">清空已选</a>
+        <a class="ok" onclick="ok()">确定选择</a>
+    </li>
 
-    <a style="">确定选择</a>
 
     <p class="yixuanb">已选择<span id="totalNum">0</span>棵,共计<span id="totalMoney">0</span>元</p>
 </div>
@@ -122,7 +124,7 @@
     </ul>
 </div>
 
-<div class="choselu" id="rowTitleTpl" style="display: none;">
+<div class="choselu" id="rowTitleTpl" style="display: none;position:relative;margin: 0.1rem;">
     <!--way neme-->
 </div>
 
@@ -131,38 +133,85 @@
     <p>01</p>
 </li>
 
-<li id="chooseInfoTpl" style="display: none"><span> </span><a class="overview_sougb"
-                                                              style="font-family: Helvetica;">X</a></li>
+<li id="chooseInfoTpl" style="display: none"><span> </span>
+    <a class="overview_sougb" style="font-family: Helvetica;">X</a></li>
 
 </body>
 
 
 <script>
-    var STATE_0 = '';
+    var STATE_0 = 0;
     //可选
-    var STATE_1 = 'img/se01_07.png';
+    var STATE_1 = 1;
     //不可选
-    var STATE_2 = 'img/se01_12.png';
+    var STATE_2 = 2;
     //已选
-    var STATE_3 = 'img/se01_13.png';
+    var STATE_3 = 3;
     //暂不开放
-    var STATE_4 = 'img/se01_09.png';
+    var STATE_4 = 4;
 
 
-    //树的类别
+    /**
+     * 树类别
+     *
+     * _id  唯一类别id
+     * name 树的名称
+     * money 树的价格
+     * info 信息
+     * img 默认图
+     * state_img_0
+     * state_img_1  可选状态的图片
+     * state_img_2  不可选状态的图片
+     * state_img_3  已选状态图片
+     * state_img_4  暂不开放状态图片
+     * getImgByState   根据状态获取状态对应的图片
+     */
     var treeTypeArr = [
         {
-            typeId: '1',
-            name: '杨树',
-            imgUrl: './img/images/zcz_12.png',
-            money: 1000
+            _id: 0,
+            name: '默认树',
+            money: 1000,
+            info: '',
+            img: '../img/images/yezi_07.png',
+            state_img_0: '',
+            state_img_1: '../img/images/yezi_03.png',
+            state_img_2: '../img/images/yezi_07.png',
+            state_img_3: '../img/images/yezi_05.png',
+            state_img_4: '../img/images/yezi_09.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
         },
         {
-            typeId: '2',
+            _id: 1,
             name: '梧桐树',
-            imgUrl: './img/images/yezi_03.png',
-            money: 5000
+            money: 1000,
+            info: '',
+            img: '../img/images/tree1-3.png',
+            state_img_0: '',
+            state_img_1: '../img/images/tree1-1.png',
+            state_img_2: '../img/images/tree1-3.png',
+            state_img_3: '../img/images/tree1-2.png',
+            state_img_4: '../img/images/tree1-4.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
         },
+        {
+            _id: 2,
+            name: '杨树',
+            money: 5000,
+            info: '',
+            img: '../img/images/tree2-3.png',
+            state_img_0: '',
+            state_img_1: '../img/images/tree2-1.png',
+            state_img_2: '../img/images/tree2-3.png',
+            state_img_3: '../img/images/tree2-2.png',
+            state_img_4: '../img/images/tree2-4.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
+        }
     ];
 
     var areaArr = [
@@ -193,7 +242,7 @@
     //父级id
     var pId = 1;
     //行数
-    var rowNum = 20;
+    var rowNum = 4;
     //列数
     var columnNum = 20;
     //可选的数量
@@ -205,31 +254,36 @@
             column: 0,
             state: 2,
             treeImg: 'img/se01_12.png',
-            content: '姓名：小明<br>班级：软件14'
+            content: '姓名：小明<br>班级：软件14',
+            treeType: getTreeById(1)
         },
         {
             row: 1,
             column: 5,
             state: 2,
-            treeImg: 'img/se01_12.png',
-            content: '姓名：小红<br>班级：土木08'
+            treeType: getTreeById(1),
+            content: '姓名：小红<br>班级：土木08',
+            treeImg: 'img/se01_12.png'
         },
         {
             row: 0,
             column: 2,
             state: 2,
             treeImg: '',
+            treeType: getTreeById(1)
         },
         {
             row: 0,
             column: 3,
             state: 4,
+            treeType: getTreeById(1)
         },
 
     ];
 
     //1横向排列 2纵向排列
     var dispalyType = 1;
+
     //需要显示自定义文字的位置信息
     var wayArr = [
         {
@@ -239,14 +293,44 @@
         },
     ];
 
-    init();
+    //初始化不设置默认树
+    // init();
+
+    //初始化设置默认树
+    init({
+        defaultTree: treeTypeArr[2]
+    });
+
+    var initTreeArr = [
+        {
+            row: 1,
+            column: 1,
+            state: 0,
+        },
+        {
+            row: 1,
+            column: 0,
+            state: 1,
+            treeType: getTreeById(1),//treeTypeArr中获取id为2的树种
+            money: 10000    //自定义特殊vip位置价格  不填则为默认价格treeTypeArr[i].money
+        },
+    ];
+    //初始化标记特殊树
+    markTrees(initTreeArr);
 
     setRowTitle(0, '北侧');
     setRowTitle(1, '南侧');
-    //
+
+    //标记已被其他用户选的树
     markTrees(choosedArr);
 
-    // $('#row_0').css('margin-left', '30%');//竖着排列路文字的位置控制
+    //竖排列时居中位置调整使用
+    // $('#row_0').css('margin-left', '20%');//竖着排列路文字的位置控制
 
+    //确定选择 生成订单
+    function ok() {
+        var chooseOrder = makeOrder();
+        console.log(chooseOrder)
+    }
 </script>
 </html>

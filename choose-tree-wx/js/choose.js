@@ -17,8 +17,11 @@ var chooseOrder = [];
 var chooseArr = [];
 
 //页面初始化
-function init() {
+function init(opt) {
+    var defaultTree = opt ? opt.defaultTree : getTreeById(0);
+
     renderTreeType();
+
     renderAreaType();
 
     for (var r = 0; r < rowNum; r++) {
@@ -33,29 +36,27 @@ function init() {
         })
     }
 
-    renderRow();
+    renderRow({
+        defaultTree: defaultTree
+    });
 
     $('#mapMainArea ul li').on('click', function () {
         var state = $(this).data('state');
         var content = $(this).data('content');
-        if (state === 2 && content) {
+
+        if (state === STATE_2 && content) {
             layer.open({
                 content: content, skin: 'msg', time: 2 //2秒后自动关闭
             });
         }
-        if (state === 1) {
+        if (state === STATE_1) {
             chooseFunc(this);
         }
-        if (state === 4) {
+        if (state === STATE_4) {
             layer.open({
                 content: '暂不开放', skin: 'msg', time: 2 //2秒后自动关闭
             });
         }
-    });
-
-    $('.treeType').on('click', function () {
-        $('.treeType').removeClass('money');
-        $(this).addClass('money');
     });
 
     $('#areaTypeDiv li a').on('click', function () {
@@ -79,7 +80,9 @@ function setRowTitle(row, title) {
 }
 
 //渲染行
-function renderRow() {
+function renderRow(opt) {
+    var defaultTree = opt ? opt.defaultTree : getTreeById(0);
+
     $('#mapMainArea').html('');
     for (var r = 0; r < rowNum; r++) {
         var rowTpl = $('#rowTpl').clone()
@@ -90,7 +93,7 @@ function renderRow() {
         var $row_h1 = $(rowTpl).find('h1');
         $($row_h1).text(tRow[r].rowTitle);
 
-        renderColumn(r);
+        renderColumn(r, {defaultTree: defaultTree});
 
         $('#row_' + r)
             .find('.chtreelul')
@@ -126,10 +129,10 @@ function renderColumnWayTitle(row) {
                 .attr('id', 'row_way_' + i)
                 .css('float', 'none')
                 .css('display', 'inline-block')
-                .html('<div style="width:.3rem;margin:0 auto;    position: absolute;    left: 1.7rem;">' + wayTitle + '</div>')
+                .html('<div style="width:.3rem;margin:0 auto;position: absolute;left: .35rem;top: .2rem;">' + wayTitle + '</div>')
             ;
             rowTitleTpl
-                .css('height', scrollHeight)
+                .css('height', scrollHeight + 80)
                 .css('width', '1rem')
                 .css('white-space', 'initial')
                 .show().appendTo($('#mapMainArea'));
@@ -156,16 +159,22 @@ function renderWayTitle(row) {
 }
 
 //渲染列
-function renderColumn(r) {
+function renderColumn(r, opt) {
+    var defaultTree = opt ? opt.defaultTree : getTreeById(0);
+
+    var _treeImg = defaultTree.getImgByState(STATE_1);
+
     for (var c = 0; c < columnNum; c++) {
         var treeTpl = getTreeTpl()
             .attr('id', pId + '_' + r + '_' + c)
             .data('row', r)
             .data('column', c)
             .data('pid', pId)
-            .data('state', 1)
+            .data('state', STATE_1)
+            .data('treeTypeId', defaultTree._id)
             .show();
 
+        $(treeTpl).find('img').attr('src', _treeImg);
         var num = c + 1 < 10 ? '0' + (c + 1) : c + 1;
         $(treeTpl).find('p').text(num);
 
@@ -177,42 +186,43 @@ function renderColumn(r) {
 
 /**
  *
- * @param r 行
- * @param c 列
- * @param state 状态
- * @param treeId
+ * @param opt.row 行
+ * @param opt.column 列
+ * @param opt.state 状态
+ * @param opt.treeInfo 信息
+ * @param opt.treeType 树的种类
+ * @param opt.money 自定义金额
  */
 function markTree(opt) {
     var r = opt.row;
     var c = opt.column;
     var state = opt.state;
     var treeInfo = opt.treeInfo;
-    var treeImg = opt.treeImg;
+    var treeType = opt.treeType;
+    var money = opt.money;
 
+    var treeTypeId = '';
+    var imgUrl = '';
+    if (treeType) {
+        treeTypeId = treeType._id;
+        imgUrl = treeType.getImgByState(state);
+    }
     var treeRowSrr = $('.treeRow');
-    var $li = $(treeRowSrr[r]).find('li')[c];
-    var img = $($li).find('img');
-    if (treeInfo && treeInfo.treeId) {
-        $($li).data('treeId', treeInfo.treeId);
-    }
-    $($li).data('state', state);
-    if (treeInfo && treeInfo.content) {
-        $($li).data('content', treeInfo.content);
-    }
 
+    var $li = $(treeRowSrr[r]).find('li')[c];
     if (state === 0) {
-        img.attr('src', STATE_0);
+        $($li).css('min-height', '.7rem');
         $($li).html('');
-    } else if (state === 1) {
-        img.attr('src', STATE_1);
-    } else if (state === 2) {
-        var _img = treeImg || STATE_2;
-        img.attr('src', _img);
-    } else if (state === 3) {
-        img.attr('src', STATE_3);
-    } else if (state === 4) {
-        img.attr('src', STATE_4);
     }
+    var img = $($li).find('img');
+
+    $($li).data('treeTypeId', treeTypeId);
+    $($li).data('money', money);
+    $($li).data('state', state);
+    $($li).data('content', treeInfo.content);
+
+    img.attr('src', imgUrl);
+
 }
 
 function markTrees(trees) {
@@ -221,16 +231,19 @@ function markTrees(trees) {
         var row = choosedItem.row;
         var column = choosedItem.column;
         var state = choosedItem.state;
-        var treeImg = choosedItem.treeImg;
+        var treeType = choosedItem.treeType;
+        var treeImg = treeType ? treeType.getImgByState(state) : '';
         var content = choosedItem.content;
+        var money = choosedItem.money;
 
         markTree({
             row: row,
             column: column,
             state: state,
             treeImg: treeImg,
+            treeType: treeType,
+            money: money,
             treeInfo: {
-                treeId: '123456789',
                 content: content
             }
         });
@@ -252,7 +265,7 @@ function resetAllChoose() {
         var item = chooseArr[n];
 
         $('#info_' + item._id).remove();
-        $('#' + item._id).find('img').attr('src', STATE_1);
+        $('#' + item._id).find('img').attr('src', getTreeById(item.treeTypeId).getImgByState(STATE_1));
     }
     totalMoney = 0;
     chooseArr = [];
@@ -274,7 +287,7 @@ function resetChooseInfo(chooseId) {
                 $('#info_' + tree._id).remove();
                 $('#' + tree._id)
                     .find('img')
-                    .attr('src', STATE_1);
+                    .attr('src', getTreeById(tree.treeTypeId).getImgByState(STATE_1));
                 chooseArr.splice(n, 1);
                 break;
             }
@@ -288,17 +301,16 @@ function resetChooseInfo(chooseId) {
 }
 
 function chooseFunc(_this) {
-    if (!curTree.typeId) {
-        layer.open({
-            content: '请先选择树种',skin: 'msg',time: 2 //2秒后自动关闭
-        });
-        return;
-    }
+    var treeTypeId = $(_this).data('treeTypeId');
+    var tree = getTreeById(treeTypeId);
+
     var _row = $(_this).data('row');
     var _column = $(_this).data('column');
+    var _money = $(_this).data('money');
+
     var rowTitle = tRow[_row].rowTitle;
-    var chooseInfo = pTitle + '-' + rowTitle + '-' + _row + '-' + (_column + 1);
-    var money = curTree.money;
+    var chooseInfo = pTitle + '-' + rowTitle + '-' + tree.name + '-' + parseInt(_row + 1) + '-' + (_column + 1);
+    var money = _money || tree.money;
     totalMoney += money;
 
     var tree = {
@@ -306,10 +318,10 @@ function chooseFunc(_this) {
         _rIndex: _row,
         _cIndex: _column,
         pId: pId,
-        state: 3,
+        state: STATE_3,
         info: chooseInfo,
         money: money,
-        treeTypeId: curTree.typeId
+        treeTypeId: treeTypeId
     };
 
     if (chooseArr.length < chooseNum) {
@@ -322,7 +334,9 @@ function chooseFunc(_this) {
             unChooseFunc(_this);
         });
     } else {
-        myAlert('只能选' + chooseNum + '颗树');
+        myAlert({
+            msg: '只能选' + chooseNum + '颗树'
+        });
     }
 
 }
@@ -333,7 +347,7 @@ function renderTotalMoney() {
 }
 
 function renderChooseInfo(tree) {
-    $('#' + tree._id).find('img').attr('src', STATE_3);
+    $('#' + tree._id).find('img').attr('src', getTreeById(tree.treeTypeId).getImgByState(STATE_3));
 
     var chooseInfoTpl = $('#chooseInfoTpl').clone().attr('id', 'info_' + tree._id).css('display', 'inline-block');
     $(chooseInfoTpl).find('span').text(tree.info);
@@ -362,17 +376,16 @@ function makeOrder() {
             chooseOrder.push(order);
         })
     }
-    console.log(chooseOrder);
+    return chooseOrder;
 }
 
 function renderTreeType() {
     treeTypeArr.forEach(function (item, i) {
-        var treeItem = '<span class="treeType">' + item.name + '</span>';
-        $(treeItem)
-            .bind('click', function () {
-                chooseTreeType(item);
-            })
-            .appendTo($('#treeTypeSel'))
+        var treeItem = '<span class="treeType" style="border: none">' +
+            '<img src="' + item.img + '">' +
+            item.name +
+            '</span>';
+        $(treeItem).appendTo($('#treeTypeSel'))
     });
 }
 
@@ -384,15 +397,57 @@ function renderAreaType() {
     })
 }
 
-function chooseTreeType(treeType) {
-    curTree = treeType;
-    console.log(curTree);
+function myAlert(opt) {
+    var msg = opt.msg || '';
+    var title = opt.title || '提示';
+
+    layer.open({
+        title: [
+            title,
+            'background-color:#9c1f23; color:#fff;'
+        ]
+        , anim: 'up'
+        , content: msg
+        , btn: ['确认']
+    });
 }
 
-function myAlert(msg) {
-    layer.config({
-        extend: 'red/layer.css',
-        skin: 'layui-layer-red' //样式类名
-    });
-    layer.alert(msg);
+/**
+ * 根据treeTpyeId获取树对象
+ *
+ * @param treeTypeId
+ * @returns {{typeId, name, imgUrl, money}|*}
+ */
+function getTreeById(treeTypeId) {
+    for (var i = 0; i < treeTypeArr.length; i++) {
+        var tree = treeTypeArr[i];
+        if (tree._id === treeTypeId) {
+            return tree;
+        }
+    }
+}
+
+// for treeTypeArr.getImgByState
+function imgSwitch(state, _this) {
+    var curStateImg = '';
+    switch (state) {
+        case 0:
+            curStateImg = _this.state_img_0;
+            break;
+        case 1:
+            curStateImg = _this.state_img_1;
+            break;
+        case 2:
+            curStateImg = _this.state_img_2;
+            break;
+        case 3:
+            curStateImg = _this.state_img_3;
+            break;
+        case 4:
+            curStateImg = _this.state_img_4;
+            break;
+        default:
+            curStateImg = _this.state_img_0;
+    }
+    return curStateImg;
 }

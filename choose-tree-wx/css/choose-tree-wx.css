@@ -691,7 +691,7 @@ body {
 	width: 100%;
 	overflow: hidden;
 	padding: 0 0.2rem;
-	margin-bottom: 1rem;
+	/*margin-bottom: 1rem;*/
 }
 
 .div_x ul {
@@ -1064,3 +1064,7 @@ body {
 .mapMainArea{position: relative;width: 100%;max-height: 5rem;overflow: hidden;overflow-x: scroll;overflow-y:scroll}
 
 .chtreelu .tree-li{position: relative;cursor: pointer;}
+
+.chosetree2_r .treeType img{vertical-align: middle;width: 0.3rem}
+
+.qing_k a.ok{background: #9c1f23;color: white;padding: .05rem .2rem;height: .5rem;line-height: .5rem;}

@@ -75,7 +75,7 @@
     </div>
     <div class="donatetog_c" style="display: block">
         <div class="chosetree2">
-            <h1>请选择树种</h1>
+            <h1>可冠名树种</h1>
             <div class="chosetree2_r">
                 <div class="donatetog_c1_rj chosetree2_r1" id="treeTypeSel">
                     <!--tree type sel area-->
@@ -89,20 +89,7 @@
             <h1>请选择区域</h1>
             <div class="chosetree2_r">
                 <div class="donatetog_c1_rj chosetree2_r1" id="areaTypeDiv">
-                    <span class="money">学森路</span>
-                    <span>梧桐西道南段</span>
-                    <span>梧桐西道北段</span>
-                    <span>梧桐东道南段</span>
-                    <span>梧桐东道南段</span>
-                    <span>梧桐东道北段</span>
-                    <span>梧桐西道南段</span>
-                    <span>梧桐西道北段</span>
-                    <span class="wchos">梧桐东道南段</span>
-                    <span class="wchos">梧桐东道北段</span>
-                    <span class="wchos">梧桐西道南段</span>
-                    <span class="wchos">梧桐西道南段</span>
-
-
+                    <!--area btn-->
                 </div>
             </div>
         </div>
@@ -115,11 +102,11 @@
                     <span>可选</span>
                 </div>
                 <div class="chosetree3_t1">
-                    <img src="./img/images/yezi_05.png"/>
+                    <img src="./img/images/yezi_07.png"/>
                     <span>不可选</span>
                 </div>
                 <div class="chosetree3_t1">
-                    <img src="./img/images/yezi_07.png"/>
+                    <img src="./img/images/yezi_05.png"/>
                     <span>已选</span>
                 </div>
 
@@ -143,14 +130,14 @@
                 </div>
                 <p style="margin-top: 18px;">
                     <span style="margin-right: 20px;cursor: pointer" onclick="resetAllChoose()">清空已选</span>
-                    <a class="persetc_btn" href="javascript:;" style="width: 90px;display: initial;padding:6px 10px">确定选择</a>
+                    <a class="persetc_btn" href="javascript:;" style="width: 90px;display: initial;padding:6px 10px" onclick="ok()">确定选择</a>
                     已选择<span id="totalNum"> 0 </span>个，共计<span id="totalMoney"> 0 </span>元
                 </p>
             </div>
 
             <div class="choosebtn">
                 <a id="chobtn1" class="persetc_btn choosebtn1" href="javascript:;">上一步</a>
-                <a id="chobtn2" class="persetc_btn" href="javascript:;" onclick="makeOrder()">下一步</a>
+                <a id="chobtn2" class="persetc_btn" href="javascript:;">下一步</a>
 
             </div>
 
@@ -172,12 +159,12 @@
 </div>
 
 <li style="display: none;position: relative;cursor: pointer" id="treeTpl">
-    <img src="./img/images/yezi_03.png"/>
+    <img src=""/>
     <p>01</p>
 </li>
 
 <div class="overview_sou" id="chooseInfoTpl" style="display: none">
-    <span style="margin-top: 5px;margin-left: 5px;"></span>
+    <span></span>
     <div class="overview_sougb" style="cursor: pointer"></div>
 </div>
 <!--tpl end -->
@@ -210,33 +197,80 @@
 </div>
 <script src="./js/choose.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    var STATE_0 = '';
+    var STATE_0 = 0;
     //可选
-    var STATE_1 = './img/images/yezi_03.png';
+    var STATE_1 = 1;
     //不可选
-    var STATE_2 = './img/images/yezi_05.png';
+    var STATE_2 = 2;
     //已选
-    var STATE_3 = './img/images/yezi_07.png';
+    var STATE_3 = 3;
     //暂不开放
-    var STATE_4 = './img/images/yezi_09.png';
+    var STATE_4 = 3;
 
-
-    //树的类别
+    /**
+     * 树类别
+     *
+     * _id  唯一类别id
+     * name 树的名称
+     * money 树的价格
+     * info 信息
+     * img 默认图
+     * state_img_0
+     * state_img_1  可选状态的图片
+     * state_img_2  不可选状态的图片
+     * state_img_3  已选状态图片
+     * state_img_4  暂不开放状态图片
+     * getImgByState   根据状态获取状态对应的图片
+     */
     var treeTypeArr = [
         {
-            typeId: '1',
-            name: '杨树',
-            imgUrl: './img/images/yezi_03.png',
-            money: 1000
+            _id: 0,
+            name: '默认树',
+            money: 1000,
+            info: '',
+            img: './img/images/yezi_07.png',
+            state_img_0: '',
+            state_img_1: './img/images/yezi_03.png',
+            state_img_2: './img/images/yezi_07.png',
+            state_img_3: './img/images/yezi_05.png',
+            state_img_4: './img/images/yezi_09.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
         },
         {
-            typeId: '2',
+            _id: 1,
             name: '梧桐树',
-            imgUrl: './img/images/yezi_03.png',
-            money: 5000
+            money: 1000,
+            info: '',
+            img: './img/images/tree1-3.png',
+            state_img_0: '',
+            state_img_1: './img/images/tree1-1.png',
+            state_img_2: './img/images/tree1-3.png',
+            state_img_3: './img/images/tree1-2.png',
+            state_img_4: './img/images/tree1-4.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
         },
+        {
+            _id: 2,
+            name: '杨树',
+            money: 5000,
+            info: '',
+            img: './img/images/tree2-3.png',
+            state_img_0: '',
+            state_img_1: './img/images/tree2-1.png',
+            state_img_2: './img/images/tree2-3.png',
+            state_img_3: './img/images/tree2-2.png',
+            state_img_4: './img/images/tree2-4.png',
+            getImgByState: function (state) {
+                return imgSwitch(state, this);
+            }
+        }
     ];
 
+    //区域数组
     var areaArr = [
         {
             title: '学森路'
@@ -261,13 +295,14 @@
         },
     ];
 
+    //父级标题
     var pTitle = '学森路';
     //父级id
     var pId = 1;
     //行数
-    var rowNum = 2;
+    var rowNum = 3;
     //列数
-    var columnNum = 30;
+    var columnNum = 20;
     //可选的数量
     var chooseNum = 2;
 
@@ -276,48 +311,69 @@
             row: 0,
             column: 0,
             state: 2,
-            treeImg: './img/images/zcz_12.png',
-            content: '姓名：小明<br>班级：软件14'
-        },
-        {
-            row: 1,
-            column: 5,
-            state: 2,
-            treeImg: './img/images/zcz_05.png',
-            content: '姓名：小红<br>班级：土木08'
+            content: '姓名：小明<br>班级：软件14',
+            treeType: getTreeById(1)
         },
         {
             row: 0,
-            column: 2,
+            column: 1,
             state: 2,
-            treeImg: '',
-        },
-        {
-            row: 0,
-            column: 3,
-            state: 4,
+            content: '姓名：小红<br>班级：软件14',
+            treeType: getTreeById(1)
         },
     ];
 
     //1横向排列 2纵向排列
     var dispalyType = 1;
+
     //需要显示自定义文字的位置信息
     var wayArr = [
         {
             row: 0,
-            column: 5,
+            column: 1,
             name: '学森路'
         },
     ];
 
-    init();
+    //设置默认树
+    init({
+        defaultTree: treeTypeArr[2]
+    });
+
+    //不设置默认树
+    // init();
+
+    var initTreeArr = [
+        {
+            row: 1,
+            column: 5,
+            state: 0,
+        },
+        {
+            row: 1,
+            column: 0,
+            state: 1,
+            treeType: getTreeById(1),//treeTypeArr中获取id为2的树种
+            money: 10000    //自定义特殊vip位置价格  不填则为默认价格treeTypeArr[i].money
+        },
+    ];
+    //初始化标记特殊树
+    markTrees(initTreeArr);
+
+    //标记已被其他用户选的树
+    markTrees(choosedArr);
+
     setRowTitle(0, '北侧');
     setRowTitle(1, '南侧');
 
-    markTrees(choosedArr);
-
+    //竖排列时居中位置调整使用
     // $('#row_0').css('margin-left', '30%');//竖着排列路文字的位置控制
 
+    //确定选择 生成订单
+    function ok() {
+        var chooseOrder = makeOrder();
+        console.log(chooseOrder)
+    }
 </script>
 </body>
 </html>
