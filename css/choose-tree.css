@@ -4478,7 +4478,7 @@ select::-ms-expand {
     width: 100%;
     height: 85px;
     background: #c5d9ee;
-    margin: 10px auto;
+    /*margin: 10px auto;*/
     float: left;
     text-align: center;
     font-size: 34px;
@@ -4486,7 +4486,7 @@ select::-ms-expand {
     color: #758da6;
 
     line-height: 85px;
-    white-space: initial;
+    position: relative;
 }
 
 .chtreeb {

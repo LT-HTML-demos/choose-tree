@@ -99,7 +99,8 @@ function renderRow() {
         } else if (dispalyType === 2) {
             $('.chtreelu').css('width', '4rem')
                 .css('display', 'inline-block')
-                .css('float', 'none');
+                .css('float', 'none')
+                .css('height','auto');
             $('#mapMainArea').css('height', '800px');
             renderColumnWayTitle(r);
         }
@@ -117,7 +118,7 @@ function renderColumnWayTitle(row) {
                 .attr('id', 'row_way_' + i)
                 .css('display', 'inline-block')
                 .css('float', 'none')
-                .html('<div style="width:60px;margin:0 auto;display: flex">' + wayTitle + '</div>')
+                .html('<div style="width:60px;margin:0 auto;position: absolute;    left: 50px;    white-space: initial;">' + wayTitle + '</div>')
             ;
             rowTitleTpl
                 .css('height', scrollHeight)
